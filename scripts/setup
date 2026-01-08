@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+sudo apt-get update
+pip install --upgrade pip
+sudo apt-get upgrade -y
+
+python3 -m pip install --requirement requirements.txt
