@@ -23,6 +23,7 @@ STREDA_B2C_TOKEN_URL = (
 STREDA_AUTHENTICATION_API_URL = (
     "https://streda-authorization-production.azurewebsites.net"
 )
+
 STREDA_DATA_API_URL = "https://streda-admin-production.azurewebsites.net"
 
 STREDA_SIGNALR_NEGOTIATE_URL = (

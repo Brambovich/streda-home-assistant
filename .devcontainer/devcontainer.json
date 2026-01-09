@@ -5,12 +5,16 @@
   //   "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
   // ],
   "features": {
+    "ghcr.io/devcontainers-extra/features/apt-packages:1": {
+      "packages": "ffmpeg,libturbojpeg0,libpcap-dev"
+    },
     "ghcr.io/devcontainers/features/sshd:1": {},
     "rust": "latest"
   },
   "remoteEnv": {
     "SSH_AUTH_SOCK": "/ssh-agent"
   },
+  "postCreateCommand": "scripts/setup",
   "forwardPorts": [8123],
   "customizations": {
     "vscode": {

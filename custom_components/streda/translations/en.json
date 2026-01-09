@@ -1,0 +1,17 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Streda cloud connection",
+        "description": "To set up the Streda integration, please provide your Refresh Token and Location ID. You can obtain these from the browser storage when you have logged into the Streda home owner portal. Click the question mark icon for more information on the setup.",
+        "data": {
+          "refresh_token": "Refresh Token",
+          "location_id": "Location ID"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect or verify access to the location."
+    }
+  }
+}
