@@ -1,4 +1,5 @@
 """Switch platform for Smart Plug integration."""
+
 import logging
 from typing import Any
 
@@ -9,11 +10,11 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-
 from .const import DOMAIN, POSITION_DESCRIPTIONS
 from .coordinator import DataCoordinator
 
 _LOGGER = logging.getLogger(__name__)
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -21,11 +22,13 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up switch platform."""
-    data_coordinator: DataCoordinator = hass.data[DOMAIN][entry.entry_id]['data_coordinator']
-    
+    data_coordinator: DataCoordinator = hass.data[DOMAIN][entry.entry_id][
+        "data_coordinator"
+    ]
+
     # Get devices from coordinator data
-    system = hass.data[DOMAIN][entry.entry_id]['system']
-    
+    system = hass.data[DOMAIN][entry.entry_id]["system"]
+
     entities = []
     for room in system:
         for dock in room.get("docks", []):
@@ -41,10 +44,12 @@ async def async_setup_entry(
 class RelayBin(CoordinatorEntity, SwitchEntity):
     """Representation of a Smart Plug Socket."""
 
-    def __init__(self, data_coordinator: DataCoordinator, room_data: dict, dock_data: dict) -> None:
+    def __init__(
+        self, data_coordinator: DataCoordinator, room_data: dict, dock_data: dict
+    ) -> None:
         """Initialize the socket."""
         super().__init__(data_coordinator)
-        
+
         # Dock information
         self._zigbee_id = dock_data.get("zigbeeId")
         self._snap_in_id = dock_data.get("snapInId")
@@ -57,16 +62,27 @@ class RelayBin(CoordinatorEntity, SwitchEntity):
 
         # Entity attributes
         self._attr_name = f"{self._room_name} Ceiling Light"
-        self._attr_unique_id = f"{DOMAIN}_{self._snap_in_id}_relay_{self._dock_device_number}"
-        
+        self._attr_unique_id = (
+            f"{DOMAIN}_{self._snap_in_id}_relay_{self._dock_device_number}"
+        )
+
         # Firmware version and device number
         devices = self.coordinator.data.get("device_states", [])
         for snap_in in devices:
             if snap_in.get("zigbeeId") == self._zigbee_id:
                 # Firmware version snap in
-                firmware_state = next((state for state in snap_in.get("states", []) if state.get("type") == "FirmwareState"),  None)
+                firmware_state = next(
+                    (
+                        state
+                        for state in snap_in.get("states", [])
+                        if state.get("type") == "FirmwareState"
+                    ),
+                    None,
+                )
                 if firmware_state:
-                    firmware_version = firmware_state.get("data", {}).get("firmwareVersion", "unknown")
+                    firmware_version = firmware_state.get("data", {}).get(
+                        "firmwareVersion", "unknown"
+                    )
                 # device number in dock
                 for device in snap_in.get("devices", []):
                     if device.get("deviceType") == "RelayBin":
@@ -79,7 +95,7 @@ class RelayBin(CoordinatorEntity, SwitchEntity):
             name=f"{self._room_name} {POSITION_DESCRIPTIONS.get(dock_data.get('positionId', ''), '')}",
             manufacturer="Isolectra",
             model="Ceiling mounted snap-in",
-            sw_version=firmware_version
+            sw_version=firmware_version,
         )
 
     @property
@@ -101,7 +117,7 @@ class RelayBin(CoordinatorEntity, SwitchEntity):
                     if state.get("type") == "PowerState":
                         state = state.get("data").get("state")
         return state == "ON"
-    
+
     @property
     def icon(self):
         if self.is_on:
@@ -123,6 +139,3 @@ class RelayBin(CoordinatorEntity, SwitchEntity):
         """Turn the socket off."""
         if self.is_on:
             await self.toggle()
-
-
-    

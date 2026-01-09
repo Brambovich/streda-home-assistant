@@ -1,7 +1,7 @@
 {
   "domain": "streda",
   "name": "Streda",
-  "documentation": "https://github.com/Brambovich/streda_homeassistant_integration",
+  "documentation": "https://github.com/Brambovich/streda-home-assistant",
   "requirements": ["aiohttp>=3.8.0", "signalrcore>=0.9.5"],
   "codeowners": ["@Brambovich"],
   "config_flow": true,
