@@ -8,3 +8,5 @@ Needs to be setup up using a refresh token from the Streda home owner panel and 
 These can be gathered from the browser storage in every browser.
 
 More information on setup will follow.
+
+![switch](assets/switch.png)
