@@ -1,7 +1,7 @@
 """Constants for the streda Lights integration."""
 
 DOMAIN = "streda"
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 # Configuration
 CONF_REFRESH_TOKEN = "refresh_token"
