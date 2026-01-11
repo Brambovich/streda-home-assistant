@@ -1,5 +1,7 @@
 # streda-home-assistant
 
+# THIS INTEGRATION IS BROKEN BECAUSE OF CHANGED TOKEN RENEWAL AT STREDA, IM WORKING ON RESOLVING IT...
+
 Home assistant integration for Streda wired houses
 
 Right now only includes ceiling lights (more coming soon)
